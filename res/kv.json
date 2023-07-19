@@ -1,0 +1,14 @@
+[
+    {
+        "source_tb": "Adressen",
+        "source_flds": "",
+        "dest_tb": "adressen",
+        "dest_flds": ""
+    },
+    {
+        "source_tb": "Adressen",
+        "source_flds": "",
+        "dest_tb": "adressen",
+        "dest_flds": ""
+    }
+]

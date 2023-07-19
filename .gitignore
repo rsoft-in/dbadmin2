@@ -1,0 +1,16 @@
+#directories
+bower_components
+node_modules
+dist
+
+#files
+*.tgz
+*.log
+*.s3db
+*.db
+.DS_Store
+*.csv
+
+vendor/.DS_Store
+vendor/jquery/.DS_Store
+res/.DS_Store

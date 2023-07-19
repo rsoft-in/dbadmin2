@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBAdmin</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="res/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+
+<body>
+    <nav id="navigation" class="rs-sticky rs-navbar-container">
+        <div class="rs-background-secondary">
+
+            <div class="rs-navbar-left">
+                <div class="rs-logo">
+                    <div class="rs-logo-title">
+                        <img src="res/db.png" alt="" style="width: 20px;">DBAdmin
+                    </div>
+                </div>
+            </div>
+            <div class="rs-navbar-right">
+                <a class="rs-nav-item" id="minimize" href="#">
+                    <span class="material-symbols-outlined">
+                        minimize
+                    </span></a>
+                <a class="rs-nav-item" id="exit" href="#">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="rs-container-expand">
+        <div class="rs-padding">
+            <div class="row">
+                Source Database
+            </div>
+            <div class="row rs-padding-v">
+                <div class="col-2">
+                    <div class="rs-select">
+                        <select id="source-type">
+                            <option value="vfp">VFP</option>
+                            <option value="accdb">Access</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-8 rs-padding-h">
+                    <input type="text" class="rs-width-full" id="source-db" name="source-db" placeholder="Source File"
+                        readonly>
+                </div>
+                <div class="col-2 rs-padding-h">
+                    <button id="select-file" class="rs-width-full">Select</button>
+                </div>
+            </div>
+            <div class="row rs-padding-v">
+                Destination Database
+            </div>
+            <div class="row rs-padding-v">
+                <div class="col-4">
+                    <input type="text" class="rs-width-full" id="server-name" name="server-name"
+                    value="localhost" placeholder="Server Address">
+                </div>
+                <div class="col-2 rs-padding-h">
+                    <input type="text" class="rs-width-full" id="server-user-name" name="server-user-name"
+                    value="rajesh" placeholder="Username">
+                </div>
+                <div class="col-2 rs-padding-h">
+                    <input type="password" class="rs-width-full" id="server-password" name="server-password"
+                    value="Lucky913x" placeholder="Password">
+                </div>
+                <div class="col-2 rs-padding-h">
+                    <input type="text" class="rs-width-full" id="server-db-name" name="server-db-name"
+                    value="md_sge" placeholder="DB Name">
+                </div>
+                <div class="col-2 rs-padding-h">
+                    <button id="connect" type="button" class="rs-primary rs-width-full">Import</button>
+                </div>
+            </div>
+            <div class="row rs-padding-v">
+                <div class="console">
+                    <div id="summary-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+
+</html>

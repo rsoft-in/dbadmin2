@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    --rs-border-radius: 8px;
+    --rs-border: 1px solid #a5a5a5;
+    --rs-border-focus: 1px solid #333333;
+    --rs-default-color: #333333;
+    --rs-default-hover: #222222;
+    --rs-primary-color: #4c67ff;
+    --rs-primary-hover: #3957fd;
+}
+
+body {
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.rs-padding {
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.rs-padding-h {
+    padding-left: 5px;
+}
+
+.rs-padding-v {
+    padding: 5px 0;
+}
+
+.rs-width-full {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.rs-primary {
+    background-color: var(--rs-primary-color);
+}
+
+.rs-primary:hover {
+    background-color: var(--rs-primary-hover);
+}
+
+.rs-sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.rs-navbar-container {
+    background-color: #000000;
+    color: #ffffff;
+    height: 50px;
+    overflow: hidden;
+}
+
+.rs-navbar-left {
+    float: left;
+    overflow: auto;
+}
+
+.rs-navbar-right {
+    float: right;
+}
+
+.rs-logo {
+    font-size: 1.2rem;
+}
+
+.rs-logo .rs-logo-title {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+.rs-logo img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+#navigation {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-app-region: drag;
+}
+
+.rs-navbar-right {
+    -webkit-app-region: no-drag;
+}
+
+a.rs-nav-item {
+    text-decoration: none;
+    color: #a5a5a5;
+    padding: 12px 12px;
+    display: inline-block;
+    vertical-align: middle;
+    outline: none;
+}
+
+a.rs-nav-item .material-symbols-outlined {
+    font-size: 1.5rem;
+}
+
+a.rs-nav-item:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.rs-container-expand {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+button {
+    border: none;
+    padding: 11px 15px;
+    background-color: var(--rs-default-color);
+    color: #eeeeee;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: var(--rs-border-radius);
+}
+
+button:hover {
+    background-color: var(--rs-default-hover);
+    color: #ffffff;
+    transition: all 0.3s ease 0s;
+}
+
+input:not([type=checkbox]),
+textarea {
+    border: var(--rs-border);
+    padding: 10px 10px;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: var(--rs-border-radius);
+}
+
+input:not([type=checkbox]):focus,
+textarea:focus {
+    border: var(--rs-border-focus);
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #e5e5e5;
+    background-image: none;
+    flex: 1;
+    padding: 0 .5em;
+    color: #444;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.rs-select {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 2.3rem;
+    line-height: 3;
+    background: #e5e5e5;
+    overflow: hidden;
+    border-radius: var(--rs-border-radius);
+    box-sizing: border-box;
+}
+
+.rs-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #e5e5e5;
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+}
+
+.rs-select:hover::after {
+    color: #000;
+    background-color: #a5a5a5;
+}
+
+.row {
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+[class*="col-"] {
+    float: left;
+    box-sizing: border-box;
+}
+
+.console {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    top: 160px;
+    overflow-y: hidden;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    color: #333333;
+    background-color: #ffffff;
+    border: var(--rs-border);
+    border-radius: var(--rs-border-radius);
+}
+
+.console div {
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+}

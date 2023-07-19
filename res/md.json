@@ -1,0 +1,14 @@
+[
+    {
+        "source_tb": "t_adressen.dbf",
+        "source_flds": "",
+        "dest_tb": "adressen",
+        "dest_flds": ""
+    },
+    {
+        "source_tb": "t_orte.dbf",
+        "source_flds": "",
+        "dest_tb": "orte",
+        "dest_flds": ""
+    }
+]
