@@ -76,12 +76,12 @@ ipcMain.on('connect-db', async (event, args) => {
     var dbType = args['sourcetype'];
 
     // MySQL Connection
-    // const connection = mysql.createConnection({
-    //     host: args['server'],
-    //     user: args['user'],
-    //     password: args['pwd'],
-    //     database: args['destdb']
-    // });
+    const connection = mysql.createConnection({
+        host: args['server'],
+        user: args['user'],
+        password: args['pwd'],
+        database: args['destdb']
+    });
     // console.log(connection);
 
     // Read mapping file
@@ -89,7 +89,7 @@ ipcMain.on('connect-db', async (event, args) => {
         const v = await version({ database: filePath });
         // console.log(v);
         try {
-            let rawData = fs.readFileSync(`res${seperator}kv.json`);
+            let rawData = fs.readFileSync(`res${seperator}accdb.json`);
             let dbMap = JSON.parse(rawData);
             for (let i = 0; i < dbMap.length; i++) {
                 const db = dbMap[i];
@@ -110,7 +110,7 @@ ipcMain.on('connect-db', async (event, args) => {
 
     if (dbType == 'vfp') {
         try {
-            let rawData = fs.readFileSync(`res${seperator}md.json`);
+            let rawData = fs.readFileSync(`res${seperator}vfp.json`);
             let dbMap = JSON.parse(rawData);
             let files = fs.readdirSync(filePath);
             for (let i = 0; i < dbMap.length; i++) {
@@ -119,6 +119,27 @@ ipcMain.on('connect-db', async (event, args) => {
                 console.log(`source: ${srcFile}`);
                 if (srcFile.length > 0) {
                     let dbf = await DBFFile.open(`${filePath}${seperator}${srcFile}`);
+                    let rows = await dbf.readRecords(10);
+
+                    if (db['source_join'] != '') {
+                        let dbf2 = await DBFFile.open(`${filePath}${seperator}${db['source_join']}`);
+                        let rows2 = await dbf2.readRecords();
+                        let condition = db['join_on'].split('=');
+                        // rows contains t_adressen data
+                        // rows2 contains t_orte data
+                        for (let i = 0; i < rows.length; i++) {
+                            for (let j = 0; j < rows2.length; j++) {
+                                if (rows[i][condition[0]] == rows2[j][condition[1]]) {
+                                    let a_join = db['join_flds'];
+                                    for(let x = 0; x < a_join.length; x++) {
+                                        rows[i][a_join[x]['sfld']] = rows2[j][a_join[x]['tfld']];    
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // console.log(rows);
+                    }
                     let resp = `{"source": "${srcFile}", "dest": "${db['dest_tb']}", "records": "${dbf.recordCount}"}`;
                     event.reply('connect-db', resp);
                 }
@@ -127,5 +148,4 @@ ipcMain.on('connect-db', async (event, args) => {
             event.reply('connect-db', `ERROR: ${error}`);
         }
     }
-
 })

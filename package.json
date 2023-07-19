@@ -16,7 +16,7 @@
   "author": "RSoft",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^25.2.0"
+    "electron": "^25.3.0"
   },
   "dependencies": {
     "@el3um4s/mdbtools": "^1.0.3",
