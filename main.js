@@ -82,6 +82,7 @@ ipcMain.on('connect-db', async (event, args) => {
         password: args['pwd'],
         database: args['destdb']
     });
+
     // console.log(connection);
 
     // Read mapping file
@@ -108,7 +109,7 @@ ipcMain.on('connect-db', async (event, args) => {
         }
     }
 
-    if (dbType == 'vfp') {
+    else if (dbType == 'vfp') {
         try {
             let rawData = fs.readFileSync(`res${seperator}vfp.json`);
             let dbMap = JSON.parse(rawData);
@@ -131,14 +132,62 @@ ipcMain.on('connect-db', async (event, args) => {
                             for (let j = 0; j < rows2.length; j++) {
                                 if (rows[i][condition[0]] == rows2[j][condition[1]]) {
                                     let a_join = db['join_flds'];
-                                    for(let x = 0; x < a_join.length; x++) {
-                                        rows[i][a_join[x]['sfld']] = rows2[j][a_join[x]['tfld']];    
+                                    for (let x = 0; x < a_join.length; x++) {
+                                        rows[i][a_join[x]['sfld']] = rows2[j][a_join[x]['tfld']];
                                     }
                                 }
                             }
                         }
-                        
+
                         // console.log(rows);
+                    }
+                    for (let j = 0; j < rows.length; j++) {
+                        const record = rows[j];
+                        // console.log(record);
+                        const tableName = db['dest_tb'];
+
+
+
+                        // Construct the INSERT query
+                        // const columns = Object.keys(record).join(', ');
+
+
+
+
+                        const columns = db['dest_flds'];
+                        // const values = Object.values(record).map((val) => connection.escape(val)).join(', ');
+                        let values = [];
+                        let sflds = db['source_flds'].split(',');
+
+
+
+                        for (let y = 0; y < sflds.length; y++) {
+                            const sourceField = sflds[y].toUpperCase();
+                            let value = record[sourceField];
+
+                            if (value != null) {
+                                if ((`${value}`).indexOf(':') > 0) {
+                                    const date = new Date(value);
+                                    if (!isNaN(date)) {
+                                        value = date.toISOString().slice(0, 19).replace('T', ' ');
+                                    }
+                                }
+                            }
+
+                            values.push(value);
+                        }
+                        const insertQuery = `INSERT INTO ${tableName} (${columns}) VALUES ('${values.join("', '")}')`;
+                        console.log(insertQuery);
+
+                        // Execute the INSERT query
+                        connection.query(insertQuery, (error, results) => {
+                            if (error) {
+                                event.reply('connect-db', `ERROR: Failed to insert record: ${error.message}`);
+                            } else {
+                                console.log(`Inserted record into ${tableName}: ${JSON.stringify(record)}`);
+                            }
+                        }
+                        );
                     }
                     let resp = `{"source": "${srcFile}", "dest": "${db['dest_tb']}", "records": "${dbf.recordCount}"}`;
                     event.reply('connect-db', resp);
