@@ -3,6 +3,7 @@
         "source_tb": "t_adressen.dbf",
         "source_join": "t_orte.dbf",
         "join_on": "ADR_ORD_NR=ORT_ORD_NR",
+        "primary_key":"ADR_KUNU",
         "join_flds": [
             {
                 "sfld": "ADR_PLZ",
@@ -13,17 +14,18 @@
                 "tfld": "ORT_ORT"
             }
         ],
-        "source_flds": "",
+        "source_flds": "adr_kunu,adr_vor,adr_nach,adr_firma1,adr_firma,adr_zus,adr_str,adr_post,adr_plz,adr_ort,adr_ord_nr,adr_tel_g,adr_tel_p,adr_tel_f,adr_natel,adr_email,bemerkung,adr_bur_nr,arexnr,adr_codes,seit,mut,person",
         "dest_tb": "adressen",
-        "dest_flds": ""
+        "dest_flds": "adr_kunu,adr_vor,adr_nach,adr_firma1,adr_firma,adr_zus,adr_str,adr_post,adr_plz,adr_ort,adr_ord_nr,adr_tel_g,adr_tel_p,adr_tel_f,adr_natel,adr_email,adr_bemerkung,adr_bur_nr,adr_arexnr,adr_codes,adr_created,adr_modified,adr_user"
     },
     {
         "source_tb": "t_orte.dbf",
         "source_join": "",
         "join_on": "",
+        "primary_key":"ORT_ORD_NR",
         "join_flds": [],
-        "source_flds": "",
+        "source_flds": "ort_ord_nr,ort_plz,ort_ort,ort_land,seit,mut,person",
         "dest_tb": "orte",
-        "dest_flds": ""
+        "dest_flds": "ort_ord_nr,ort_plz,ort_ort,ort_land,ort_created,ort_modified,ort_user"
     }
 ]
