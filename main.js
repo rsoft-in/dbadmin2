@@ -87,7 +87,8 @@ ipcMain.on('connect-db', async (event, args) => {
 
     // Read mapping file
     if (dbType == 'accdb') {
-        const v = await version({ database: filePath });
+        const windowPath = path.join(__dirname, '..', 'mdbtools-win');
+        const v = await version({ database: filePath, windowsPath: windowPath });
         // console.log(v);
         try {
             let rawData = fs.readFileSync(`res${seperator}accdb.json`);
@@ -97,14 +98,15 @@ ipcMain.on('connect-db', async (event, args) => {
                 let rowsFailed = 0;
                 const db = dbMap[i];
                 if (!db['enable']) continue;
-                if (db['clear']) {
-                    await connection.query(`DELETE FROM ${db['dest_tb']}`);
-                }
+                // if (db['clear']) {
+                //     await connection.query(`DELETE FROM ${db['dest_tb']}`);
+                // }
                 let sourceFields = db['source_flds'].split(',');
                 let qry = `Select ${db['source_flds']} from ${db['source_tb']}`;
                 const list = await sql(
                     {
                         database: filePath,
+                        windowsPath: windowPath,
                         sql: qry
                     }
                 );
