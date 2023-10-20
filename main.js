@@ -96,9 +96,9 @@ ipcMain.on('connect-db', async (event, args) => {
                 let rowsFailed = 0;
                 const db = dbMap[i];
                 if (!db['enable']) continue;
-                // if (db['clear']) {
-                //     await connection.query(`DELETE FROM ${db['dest_tb']}`);
-                // }
+                if (db['clear']) {
+                    let resClear = await clearDB(connection, db['dest_tb']);
+                }
                 let sourceFields = db['source_flds'].split(',');
                 let qry = `Select ${db['source_flds']} from ${db['source_tb']}`;
                 const list = await sql(
@@ -134,9 +134,7 @@ ipcMain.on('connect-db', async (event, args) => {
         } catch (error) {
             event.reply('connect-db', `ERROR: ${error}`);
         }
-    }
-
-    else if (dbType == 'vfp') {
+    } else if (dbType == 'vfp') {
         try {
             let rawData = fs.readFileSync(`res${seperator}vfp.json`);
             let dbMap = JSON.parse(rawData);
@@ -223,5 +221,17 @@ ipcMain.on('connect-db', async (event, args) => {
         } catch (error) {
             event.reply('connect-db', `ERROR: ${error}`);
         }
+    }
+
+    async function clearDB(connection, tableName) {
+        return new Promise((resolve, reject) => {
+            connection.query(`DELETE FROM ${tableName}`, (err, res) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve('SUCCESS');
+                }
+            });
+        });
     }
 })
