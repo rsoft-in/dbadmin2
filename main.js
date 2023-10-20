@@ -114,12 +114,14 @@ ipcMain.on('connect-db', async (event, args) => {
                     let data = [];
                     const item = list[i];
                     for (let j = 0; j < sourceFields.length; j++) {
-                        data.push(decodeURIComponent(escape(item[sourceFields[j]])));
+                        // data.push(decodeURIComponent(escape(item[sourceFields[j]])));
+                        data.push(item[sourceFields[j]]);
                     }
                     connection.query("INSERT INTO " + db['dest_tb'] + "(" + db['dest_flds'] + ") VALUES (" + (("?,").repeat(sourceFields.length)).substring(0, (sourceFields.length * 2) - 1) + ")", data, (errIns, resIns) => {
-                        if (errIns)
+                        if (errIns){
                             rowsFailed++;
-                        else
+                            // console.log(errIns);
+                        } else
                             rowsIns++;
                         console.log(rowsIns + rowsFailed);
                         if (list.length == rowsIns + rowsFailed) {
