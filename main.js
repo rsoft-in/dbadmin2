@@ -92,16 +92,40 @@ ipcMain.on('connect-db', async (event, args) => {
             let rawData = fs.readFileSync(`res${seperator}accdb.json`);
             let dbMap = JSON.parse(rawData);
             for (let i = 0; i < dbMap.length; i++) {
+                let rowsIns = 0;
+                let rowsFailed = 0;
                 const db = dbMap[i];
-                let qry = `Select * from ${db['source_tb']}`;
+                if (!db['enable']) continue;
+                if (db['clear']) {
+                    await connection.query(`DELETE FROM ${db['dest_tb']}`);
+                }
+                let sourceFields = db['source_flds'].split(',');
+                let qry = `Select ${db['source_flds']} from ${db['source_tb']}`;
                 const list = await sql(
                     {
                         database: filePath,
                         sql: qry
                     }
                 );
-                let resp = `{"source": "${db['source_tb']}", "dest": "${db['dest_tb']}", "records": "${list.length}"}`;
-                event.reply('connect-db', resp);
+                for (let i = 0; i < list.length; i++) {
+                    let data = [];
+                    const item = list[i];
+                    for (let j = 0; j < sourceFields.length; j++) {
+                        data.push(decodeURIComponent(escape(item[sourceFields[j]])));
+                    }
+                    connection.query("INSERT INTO " + db['dest_tb'] + "(" + db['dest_flds'] + ") VALUES (" + (("?,").repeat(sourceFields.length)).substring(0, (sourceFields.length * 2) - 1) + ")", data, (errIns, resIns) => {
+                        if (errIns)
+                            rowsFailed++;
+                        else
+                            rowsIns++;
+                        console.log(rowsIns + rowsFailed);
+                        if (list.length == rowsIns + rowsFailed) {
+                            let resp = `{"source": "${db['source_tb']}", "dest": "${db['dest_tb']}", "msg": "${list.length} Records, ${rowsIns} added, ${rowsFailed} failed."}`;
+                            event.reply('connect-db', resp);
+                            console.log("Total records " + list.length);
+                        }
+                    });
+                }
             }
         } catch (error) {
             event.reply('connect-db', `ERROR: ${error}`);
@@ -131,13 +155,13 @@ ipcMain.on('connect-db', async (event, args) => {
                             for (let j = 0; j < rows2.length; j++) {
                                 if (rows[i][condition[0]] == rows2[j][condition[1]]) {
                                     let a_join = db['join_flds'];
-                                    for(let x = 0; x < a_join.length; x++) {
-                                        rows[i][a_join[x]['sfld']] = rows2[j][a_join[x]['tfld']];    
+                                    for (let x = 0; x < a_join.length; x++) {
+                                        rows[i][a_join[x]['sfld']] = rows2[j][a_join[x]['tfld']];
                                     }
                                 }
                             }
                         }
-                        
+
                         // console.log(rows);
                     }
                     let resp = `{"source": "${srcFile}", "dest": "${db['dest_tb']}", "records": "${dbf.recordCount}"}`;

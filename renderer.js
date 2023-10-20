@@ -62,6 +62,6 @@ ipcRenderer.on('connect-db', function (event, msg) {
     if (msg.indexOf('source') >= 0) {
         console.log(msg);
         let map = JSON.parse(msg);
-        summaryText.innerHTML += `${map['source']} => ${map['dest']}: ${map['records']} records<br>`;
+        summaryText.innerHTML += `${map['source']} => ${map['dest']}: ${map['msg']}<br>`;
     }
 });

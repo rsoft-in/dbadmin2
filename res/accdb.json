@@ -1,14 +1,34 @@
 [
     {
         "source_tb": "Adressen",
-        "source_flds": "",
+        "source_flds": "PersNr,Nachname,Vorname,Firma,Strasse,Zusatz,PLZ,Ort,Telefon,Fax,Anrede",
         "dest_tb": "adressen",
-        "dest_flds": ""
+        "dest_flds": "adr_kunu,adr_nach,adr_vor,adr_firma,adr_str,adr_zus,adr_plz,adr_ort,adr_tel_p,adr_tel_f,adr_anred",
+        "enable": true,
+        "clear": true
     },
     {
-        "source_tb": "Adressen",
-        "source_flds": "",
-        "dest_tb": "adressen",
-        "dest_flds": ""
+        "source_tb": "BankAWL",
+        "source_flds": "BClearing,BAdr1,Badr2,BStrasse,BPLZ,BOrt",
+        "dest_tb": "BankAWL",
+        "dest_flds": "",
+        "enable": false,
+        "clear": true
+    },
+    {
+        "source_tb": "Betrieb",
+        "source_flds": "Fax,Firma,GNR,MVNR,Name_Export_Datei,PMethode1,PMethode2,PMethode3,PMethode4,PMethode5,R_Monate,Telefon,VerwerterNr,Firma1,Firma2,Strasse,PLZ,Ort,MwstNr,BCMiGe,BKontoMiGe,BCHuZi,BKontoHuZi,GeZahl,FaktEiw,FaktUmr,MiproRz,AbrRz,Huettenzins,HuettenzinsFix,HuettenzinsVariabel,AbrDat,Runden,selektiert,QFName,RueckverguetungAnsatz,Beguenstigter,BetrNr",
+        "dest_tb": "Betrieb",
+        "dest_flds": "",
+        "enable": false,
+        "clear": true
+    },
+    {
+        "source_tb": "Lieferant",
+        "source_flds": "BURNR,selected,PersNr,BetrNr,LieferantenNr,Zone,Silo,GKont,ZKont,Freimenge,Milchpreis,Rueckbehalt,OrtZu,Gehaltsbezahlung,BetrForm,LieferArt,MorgenL,AbendL,Temp,BezBar,EinlDetail,RueckDetail,Seamm,SeammTarif,Rabatt,BClearing,IBAN,Nachzahlung,BarBetragFix,AuszArt",
+        "dest_tb": "Lieferant",
+        "dest_flds": "",
+        "enable": false,
+        "clear": true
     }
 ]
