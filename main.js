@@ -98,7 +98,6 @@ ipcMain.on('connect-db', async (event, args) => {
                 if (!db['enable']) continue;
                 if (db['clear']) {
                     let resClear = await clearDB(connection, db['dest_tb']);
-                    console.log(resClear);
                 }
                 let sourceFields = db['source_flds'].split(',');
                 let sourceFunc = db['source_func'].split(',');
@@ -134,7 +133,7 @@ ipcMain.on('connect-db', async (event, args) => {
                     connection.query("INSERT INTO " + db['dest_tb'] + "(" + db['dest_flds'] + ") VALUES (" + (("?,").repeat(sourceFields.length)).substring(0, (sourceFields.length * 2) - 1) + ")", data, (errIns, resIns) => {
                         if (errIns) {
                             rowsFailed++;
-                            console.log(errIns);
+                            // console.log(errIns);
                         } else {
                             rowsIns++;
                         }

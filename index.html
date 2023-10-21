@@ -7,88 +7,95 @@
     <title>DBAdmin</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="res/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
-    <nav id="navigation" class="rs-sticky rs-navbar-container">
-        <div class="rs-background-secondary">
-
-            <div class="rs-navbar-left">
-                <div class="rs-logo">
-                    <div class="rs-logo-title">
-                        <img src="res/db.png" alt="" style="width: 20px;">DBAdmin
-                    </div>
-                </div>
+    <nav id="navigation" class="navbar sticky-top bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="res/db.png" alt="Logo" width="24" height="24" class="d-inline-block align-text-top">
+                DBAdmin
+            </a>
+            <div id="actions" class="d-flex">
+                <li class="nav-item">
+                    <a class="rs-nav-item" id="minimize" href="#">
+                        <span class="material-symbols-outlined">
+                            minimize
+                        </span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="rs-nav-item" id="exit" href="#">
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    </a>
+                </li>
             </div>
-            <div class="rs-navbar-right">
-                <a class="rs-nav-item" id="minimize" href="#">
-                    <span class="material-symbols-outlined">
-                        minimize
-                    </span></a>
-                <a class="rs-nav-item" id="exit" href="#">
-                    <span class="material-symbols-outlined">
-                        close
-                    </span>
-                </a>
-            </div>
-
         </div>
     </nav>
 
-    <div class="rs-container-expand">
-        <div class="rs-padding">
-            <div class="row">
-                Source Database
+    <div class="container-fluid">
+        <form>
+            <div class="row fw-medium">
+                <div class="p-3">Source Database</div>
             </div>
-            <div class="row rs-padding-v">
+            <div class="row g-2">
                 <div class="col-2">
                     <div class="rs-select">
-                        <select id="source-type">
+                        <select id="source-type" class="form-select">
                             <option value="vfp">VFP</option>
                             <option value="accdb">Access</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-8 rs-padding-h">
-                    <input type="text" class="rs-width-full" id="source-db" name="source-db" placeholder="Source File"
-                        readonly>
-                </div>
-                <div class="col-2 rs-padding-h">
-                    <button id="select-file" class="rs-width-full">Select</button>
-                </div>
-            </div>
-            <div class="row rs-padding-v">
-                Destination Database
-            </div>
-            <div class="row rs-padding-v">
-                <div class="col-4">
-                    <input type="text" class="rs-width-full" id="server-name" name="server-name"
-                    value="localhost" placeholder="Server Address">
-                </div>
-                <div class="col-2 rs-padding-h">
-                    <input type="text" class="rs-width-full" id="server-user-name" name="server-user-name"
-                    value="rajesh" placeholder="Username">
-                </div>
-                <div class="col-2 rs-padding-h">
-                    <input type="password" class="rs-width-full" id="server-password" name="server-password"
-                    value="Lucky913x" placeholder="Password">
-                </div>
-                <div class="col-2 rs-padding-h">
-                    <input type="text" class="rs-width-full" id="server-db-name" name="server-db-name"
-                    value="md_demo" placeholder="DB Name">
-                </div>
-                <div class="col-2 rs-padding-h">
-                    <button id="connect" type="button" class="rs-primary rs-width-full">Import</button>
+                <div class="col-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="source-db" name="source-db"
+                            placeholder="Source File" readonly>
+                        <button id="select-file" type="button" class="btn btn-primary">Select</button>
+                    </div>
                 </div>
             </div>
-            <div class="row rs-padding-v">
-                <div class="console">
+            <div class="row fw-medium">
+                <div class="p-3">Destination Database</div>
+            </div>
+            <div class="row g-2">
+                <div class="col-3">
+                    <input type="text" class="form-control" id="server-name" name="server-name" value="localhost"
+                        placeholder="Server Address" title="Server Address">
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control" id="server-user-name" name="server-user-name" value="rajesh"
+                        placeholder="Username" title="Username">
+                </div>
+                <div class="col-2">
+                    <input type="password" class="form-control" id="server-password" name="server-password"
+                        value="Lucky913x" placeholder="Password" title="Password">
+                </div>
+                <div class="col-3">
+                    <input type="text" class="form-control" id="server-db-name" name="server-db-name" value="md_demo"
+                        placeholder="DB Name" title="DB Name">
+                </div>
+                <div class="col-2">
+                    <div class="d-grid">
+                        <button id="connect" type="button" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="console p-3" style="height: 310px; overflow-y: scroll;">
                     <div id="summary-text"></div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <script src="renderer.js"></script>
 </body>

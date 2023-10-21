@@ -1,7 +1,7 @@
 {
   "name": "dbadmin2",
   "version": "1.0.0",
-  "description": "Database Management Tool",
+  "description": "Database Migration Tool",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
