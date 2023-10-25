@@ -134,6 +134,7 @@ ipcMain.on('connect-db', async (event, args) => {
                     // let query = "INSERT INTO " + db['dest_tb'] + "(" + db['dest_flds'] + ") VALUES (" + paramPlaceholder + ")";
                     let query = `INSERT INTO ${db['dest_tb']} (${db['dest_flds']}) VALUES(${paramPlaceholder})`;
                     let qryResult = await runQuery(connection, query, data)
+                    console.log(`${i} ${qryResult}`);
                     // connection.query(, data, (errIns, resIns) => {
                     //     if (errIns) {
                     //         rowsFailed++;
@@ -147,7 +148,7 @@ ipcMain.on('connect-db', async (event, args) => {
                     //         console.log("Total records " + list.length);
                     //     }
                     // });
-                    if (qryResult.indexOf('SUCCESS') >= 0) {
+                    if ((`${qryResult}`).indexOf('SUCCESS') >= 0) {
                         rowsIns++;
                     } else {
                         rowsFailed++;
@@ -268,13 +269,17 @@ ipcMain.on('connect-db', async (event, args) => {
 
     async function runQuery(connection, query, data) {
         return new Promise((resolve, reject) => {
-            connection.query(query, data, (err, res) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve('SUCCESS');
-                }
-            });
+            try {
+                connection.query(query, data, (err, res) => {
+                    if (err) {
+                        resolve(err);
+                    } else {
+                        resolve('SUCCESS');
+                    }
+                });
+            } catch (error) {
+                resolve(error);
+            }
         });
     }
 })
