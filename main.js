@@ -87,7 +87,6 @@ ipcMain.on('connect-db', async (event, args) => {
     if (dbType == 'accdb') {
         const windowPath = (os.platform() == 'win32') ? path.join(__dirname, '..', 'mdbtools-win') : null;
         const v = await version({ database: filePath, windowsPath: windowPath });
-        // console.log(v);
         try {
             let rawData = fs.readFileSync(`res${seperator}accdb.json`);
             let dbMap = JSON.parse(rawData);
@@ -120,34 +119,19 @@ ipcMain.on('connect-db', async (event, args) => {
                                 _val = (_val).padStart(parseInt(_afun[2]), _afun[1]);
                             }
                             if (_afun[0] == 'def') {
-                                _val = "";
+                                _val = _afun[1];
                             }
                         }
                         if (os.platform() == 'win32') {
                             data.push(_val);
-                        }
-                        else {
+                        } else {
                             data.push(decodeURIComponent(escape(_val)));
                         }
                     }
                     let paramPlaceholder = (("?,").repeat(sourceFields.length)).substring(0, (sourceFields.length * 2) - 1);
-                    // let query = "INSERT INTO " + db['dest_tb'] + "(" + db['dest_flds'] + ") VALUES (" + paramPlaceholder + ")";
                     let query = `INSERT INTO ${db['dest_tb']} (${db['dest_flds']}) VALUES(${paramPlaceholder})`;
                     let qryResult = await runQuery(connection, query, data)
                     console.log(`${i} ${qryResult}`);
-                    // connection.query(, data, (errIns, resIns) => {
-                    //     if (errIns) {
-                    //         rowsFailed++;
-                    //         // console.log(errIns);
-                    //     } else {
-                    //         rowsIns++;
-                    //     }
-                    //     if (list.length == rowsIns + rowsFailed) {
-                    //         let resp = `{"source": "${db['source_tb']}", "dest": "${db['dest_tb']}", "msg": "${list.length} Records, ${rowsIns} added, ${rowsFailed} failed."}`;
-                    //         event.reply('connect-db', resp);
-                    //         console.log("Total records " + list.length);
-                    //     }
-                    // });
                     if ((`${qryResult}`).indexOf('SUCCESS') >= 0) {
                         rowsIns++;
                     } else {

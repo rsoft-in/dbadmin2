@@ -34,5 +34,14 @@
         "dest_flds": "kundennr,zahlung,konto,clearingnr,payname,paystr,payplz,payort",
         "enable": true,
         "clear": true
+    },
+    {
+        "source_tb": "Lieferant",
+        "source_flds": "LieferantenNr,LieferantenNr,PersNr,LieferArt",
+        "source_func": ",def;2023-01-01,padl;0;7,",
+        "dest_tb": "transponder",
+        "dest_flds": "transid,tr_vondate,kundennr,lieferart",
+        "enable": true,
+        "clear": true
     }
 ]
