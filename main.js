@@ -101,7 +101,7 @@ ipcMain.on('connect-db', async (event, args) => {
                 }
                 let sourceFields = db['source_flds'].split(',');
                 let sourceFunc = db['source_func'].split(',');
-                let qry = `Select ${db['source_flds']} from ${db['source_tb']}`;
+                let qry = `SELECT ${db['source_flds']} FROM ${db['source_tb']}`;
                 const list = await sql(
                     {
                         database: filePath,
@@ -130,20 +130,32 @@ ipcMain.on('connect-db', async (event, args) => {
                             data.push(decodeURIComponent(escape(_val)));
                         }
                     }
-                    connection.query("INSERT INTO " + db['dest_tb'] + "(" + db['dest_flds'] + ") VALUES (" + (("?,").repeat(sourceFields.length)).substring(0, (sourceFields.length * 2) - 1) + ")", data, (errIns, resIns) => {
-                        if (errIns) {
-                            rowsFailed++;
-                            // console.log(errIns);
-                        } else {
-                            rowsIns++;
-                        }
-                        if (list.length == rowsIns + rowsFailed) {
-                            let resp = `{"source": "${db['source_tb']}", "dest": "${db['dest_tb']}", "msg": "${list.length} Records, ${rowsIns} added, ${rowsFailed} failed."}`;
-                            event.reply('connect-db', resp);
-                            console.log("Total records " + list.length);
-                        }
-                    });
+                    let paramPlaceholder = (("?,").repeat(sourceFields.length)).substring(0, (sourceFields.length * 2) - 1);
+                    // let query = "INSERT INTO " + db['dest_tb'] + "(" + db['dest_flds'] + ") VALUES (" + paramPlaceholder + ")";
+                    let query = `INSERT INTO ${db['dest_tb']} (${db['dest_flds']}) VALUES(${paramPlaceholder})`;
+                    let qryResult = await runQuery(connection, query, data)
+                    // connection.query(, data, (errIns, resIns) => {
+                    //     if (errIns) {
+                    //         rowsFailed++;
+                    //         // console.log(errIns);
+                    //     } else {
+                    //         rowsIns++;
+                    //     }
+                    //     if (list.length == rowsIns + rowsFailed) {
+                    //         let resp = `{"source": "${db['source_tb']}", "dest": "${db['dest_tb']}", "msg": "${list.length} Records, ${rowsIns} added, ${rowsFailed} failed."}`;
+                    //         event.reply('connect-db', resp);
+                    //         console.log("Total records " + list.length);
+                    //     }
+                    // });
+                    if (qryResult.indexOf('SUCCESS') >= 0) {
+                        rowsIns++;
+                    } else {
+                        rowsFailed++;
+                    }
                 }
+                let resp = `{"source": "${db['source_tb']}", "dest": "${db['dest_tb']}", "msg": "${list.length} Records, ${rowsIns} added, ${rowsFailed} failed."}`;
+                event.reply('connect-db', resp);
+                console.log("Total records " + list.length);
             }
         } catch (error) {
             event.reply('connect-db', `ERROR: ${error}`);
@@ -240,6 +252,18 @@ ipcMain.on('connect-db', async (event, args) => {
     async function clearDB(connection, tableName) {
         return new Promise((resolve, reject) => {
             connection.query(`DELETE FROM ${tableName}`, (err, res) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve('SUCCESS');
+                }
+            });
+        });
+    }
+
+    async function runQuery(connection, query, data) {
+        return new Promise((resolve, reject) => {
+            connection.query(query, data, (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
