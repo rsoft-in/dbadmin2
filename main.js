@@ -251,13 +251,18 @@ ipcMain.on('connect-db', async (event, args) => {
 
     async function clearDB(connection, tableName) {
         return new Promise((resolve, reject) => {
-            connection.query(`DELETE FROM ${tableName}`, (err, res) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve('SUCCESS');
-                }
-            });
+            try {
+                connection.query(`DELETE FROM ${tableName}`, (err, res) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve('SUCCESS');
+                    }
+                });
+
+            } catch (error) {
+                reject(error);
+            }
         });
     }
 
