@@ -87,6 +87,8 @@ ipcMain.on('connect-db', async (event, args) => {
     if (dbType == 'accdb') {
         const windowPath = (os.platform() == 'win32') ? path.join(__dirname, '..', 'mdbtools-win') : null;
         const v = await version({ database: filePath, windowsPath: windowPath });
+        const today = new Date();
+        const date = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
         try {
             let rawData = fs.readFileSync(`res${seperator}accdb.json`);
             let dbMap = JSON.parse(rawData);
@@ -101,6 +103,9 @@ ipcMain.on('connect-db', async (event, args) => {
                 let sourceFields = db['source_flds'].split(',');
                 let sourceFunc = db['source_func'].split(',');
                 let qry = `SELECT ${db['source_flds']} FROM ${db['source_tb']}`;
+                if (db['source_qry'] != '') {
+                    qry = db['source_qry'];
+                }
                 const list = await sql(
                     {
                         database: filePath,
@@ -128,19 +133,51 @@ ipcMain.on('connect-db', async (event, args) => {
                             data.push(decodeURIComponent(escape(_val)));
                         }
                     }
-                    let paramPlaceholder = (("?,").repeat(sourceFields.length)).substring(0, (sourceFields.length * 2) - 1);
-                    let query = `INSERT INTO ${db['dest_tb']} (${db['dest_flds']}) VALUES(${paramPlaceholder})`;
-                    let qryResult = await runQuery(connection, query, data)
-                    console.log(`${i} ${qryResult}`);
+                    let query = '';
+                    let qryResult = '';
+                    if (db['source_tb'] == 'Abrechnung') {
+                        let data = [];
+                        let tourVonDatum = item['AuswJahr'] + '-' + item['AuswMonat'].padStart(2, '0') + '-' + '01';
+                        let previousDate = new Date(tourVonDatum);
+                        previousDate = new Date(previousDate.setMonth(previousDate.getMonth() + 1));
+                        previousDate = new Date(previousDate.setDate(previousDate.getDate() - 1));
+
+                        let tourBisDatum = previousDate.getFullYear() + '-' + String(previousDate.getMonth() + 1).padStart(2, '0') + '-' + String(previousDate.getDate()).padStart(2, '0');
+                        let refDate = (parseInt(item['AuswMonat']) == 12 ? String(parseInt(item['AuswJahr']) + 1) : item['AuswJahr']) + '-' + String(parseInt(item['AuswMonat']) == 12 ? 1 : parseInt(item['AuswMonat']) + 1).padStart(2, '0') + '-' + '01';
+                        data = [item['AuswJahr'] + String(item['AuswMonat']).padStart(2, '0') + `${item['PersNr']}`.padStart(7, '0'),
+                            refDate,
+                            tourVonDatum,
+                            tourBisDatum,
+                        Math.floor(item['MilchMengeA'] * 100) / 100,
+                        Math.floor(item['MilchKg'] * 100) / 100,
+                        item['Auszahlung'],
+                            date, (`${i}`).padStart(6, '0'), ''];
+                        query = `INSERT INTO abrechnung (refnr,refdate,tourdtvon,tourdtbis,mengeltr,mengekg,gu_auszahl,modified,transid, dta_nr) VALUES(?,?,?,?,?,?,?,?,?,?)`;
+                        qryResult = await runQuery(connection, query, data);
+                        if (qryResult.indexOf('SUCCESS') < 0) {
+                            event.reply('connect-db', `ERROR: ${qryResult}`);
+                        }
+                    } else {
+                        let paramPlaceholder = (("?,").repeat(sourceFields.length)).substring(0, (sourceFields.length * 2) - 1);
+                        query = `INSERT INTO ${db['dest_tb']} (${db['dest_flds']}) VALUES(${paramPlaceholder})`;
+                        qryResult = await runQuery(connection, query, data)
+                    }
                     if ((`${qryResult}`).indexOf('SUCCESS') >= 0) {
                         rowsIns++;
                     } else {
+                        event.reply('connect-db', `ERROR: ${qryResult}`);
                         rowsFailed++;
+                    }
+                }
+                if (db['source_tb'] == 'Abrechnung') {
+                    let updQry = await runQuery(connection, "UPDATE abrechnung JOIN transponder ON transponder.kundennr = SUBSTRING(abrechnung.refnr, 7) SET abrechnung.transid = transponder.transid")
+                    if (updQry.indexOf('SUCCESS') < 0) {
+                        event.reply('connect-db', `ERROR: ${updQry}`);
                     }
                 }
                 let resp = `{"source": "${db['source_tb']}", "dest": "${db['dest_tb']}", "msg": "${list.length} Records, ${rowsIns} added, ${rowsFailed} failed."}`;
                 event.reply('connect-db', resp);
-                console.log("Total records " + list.length);
+                // console.log("Total records " + list.length);
             }
         } catch (error) {
             event.reply('connect-db', `ERROR: ${error}`);

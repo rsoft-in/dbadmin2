@@ -1,6 +1,7 @@
 [
     {
         "source_tb": "Adressen",
+        "source_qry": "",
         "source_flds": "PersNr,Nachname,Vorname,Firma,Strasse,Zusatz,PLZ,Ort,Telefon,Fax,Anrede",
         "source_func": "padl;0;7,,,,,,,,,,",
         "dest_tb": "adressen",
@@ -9,25 +10,8 @@
         "clear": true
     },
     {
-        "source_tb": "BankAWL",
-        "source_flds": "BClearing,BAdr1,Badr2,BStrasse,BPLZ,BOrt",
-        "source_func": "",
-        "dest_tb": "BankAWL",
-        "dest_flds": "",
-        "enable": false,
-        "clear": true
-    },
-    {
-        "source_tb": "Betrieb",
-        "source_flds": "Fax,Firma,GNR,MVNR,Name_Export_Datei,PMethode1,PMethode2,PMethode3,PMethode4,PMethode5,R_Monate,Telefon,VerwerterNr,Firma1,Firma2,Strasse,PLZ,Ort,MwstNr,BCMiGe,BKontoMiGe,BCHuZi,BKontoHuZi,GeZahl,FaktEiw,FaktUmr,MiproRz,AbrRz,Huettenzins,HuettenzinsFix,HuettenzinsVariabel,AbrDat,Runden,selektiert,QFName,RueckverguetungAnsatz,Beguenstigter,BetrNr",
-        "source_func": "",
-        "dest_tb": "Betrieb",
-        "dest_flds": "",
-        "enable": false,
-        "clear": true
-    },
-    {
         "source_tb": "Lieferant",
+        "source_qry": "",
         "source_flds": "PersNr,PersNr,IBAN,BClearing,PersNr,PersNr,PersNr,PersNr",
         "source_func": "padl;0;7,def;,,,def;,def;,def;,def;",
         "dest_tb": "adr_bank",
@@ -37,10 +21,21 @@
     },
     {
         "source_tb": "Lieferant",
+        "source_qry": "",
         "source_flds": "LieferantenNr,LieferantenNr,PersNr,LieferArt",
         "source_func": ",def;2023-01-01,padl;0;7,",
         "dest_tb": "transponder",
         "dest_flds": "transid,tr_vondate,kundennr,lieferart",
+        "enable": true,
+        "clear": true
+    },
+    {
+        "source_tb": "Abrechnung",
+        "source_qry": "SELECT PersNr,AuswJahr,AuswMonat,Auszahlung,MilchMengeA,MilchKg FROM Abrechnung",
+        "source_flds": "PersNr,AuswJahr,AuswMonat,Auszahlung,MilchMengeA,MilchKg",
+        "source_func": "padl;0;7,,,,,",
+        "dest_tb": "abrechnung",
+        "dest_flds": "refnr,refdate,tourdtvon,tourdtbis,gu_auszahl,mengeltr,mengekg,modified",
         "enable": true,
         "clear": true
     }
