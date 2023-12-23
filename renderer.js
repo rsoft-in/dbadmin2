@@ -13,6 +13,7 @@ const serverName = document.getElementById('server-name');
 const serverUsername = document.getElementById('server-user-name');
 const serverPassword = document.getElementById('server-password');
 const serverDbName = document.getElementById('server-db-name');
+const progressBar = document.getElementById('progress-bar');
 
 minimizeButton.addEventListener('click', () => {
     ipcRenderer.send('minimize-app', null);
@@ -63,5 +64,9 @@ ipcRenderer.on('connect-db', function (event, msg) {
         console.log(msg);
         let map = JSON.parse(msg);
         summaryText.innerHTML += `${map['source']} => ${map['dest']}: ${map['msg']}<br>`;
+    }
+    if (msg.indexOf('progress') >= 0) {
+        let pg = JSON.parse(msg);
+        progressBar.style.width = pg['progress'] + '%';
     }
 });

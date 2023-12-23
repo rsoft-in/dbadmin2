@@ -1,31 +1,67 @@
 [
     {
-        "source_tb": "t_adressen.dbf",
-        "source_join": "t_orte.dbf",
-        "join_on": "ADR_ORD_NR=ORT_ORD_NR",
-        "primary_key":"ADR_KUNU",
-        "join_flds": [
-            {
-                "sfld": "ADR_PLZ",
-                "tfld": "ORT_PLZ"
-            },
-            {
-                "sfld": "ADR_ORT",
-                "tfld": "ORT_ORT"
-            }
-        ],
-        "source_flds": "adr_kunu,adr_vor,adr_nach,adr_firma1,adr_firma,adr_zus,adr_str,adr_post,adr_plz,adr_ort,adr_ord_nr,adr_tel_g,adr_tel_p,adr_tel_f,adr_natel,adr_email,bemerkung,adr_bur_nr,arexnr,adr_codes,seit,mut,person",
-        "dest_tb": "adressen",
-        "dest_flds": "adr_kunu,adr_vor,adr_nach,adr_firma1,adr_firma,adr_zus,adr_str,adr_post,adr_plz,adr_ort,adr_ord_nr,adr_tel_g,adr_tel_p,adr_tel_f,adr_natel,adr_email,adr_bemerkung,adr_bur_nr,adr_arexnr,adr_codes,adr_created,adr_modified,adr_user"
+        "source_tb": "t_codes.dbf",
+        "source_flds": "cod_art,cod_code,cod_bez,cod_wert,seit,mut,person",
+        "dest_tb": "codes",
+        "dest_flds": "cod_art,cod_code,cod_bez,cod_wert,cod_created,cod_modified,cod_user",
+        "enabled": false,
+        "clear": true
     },
     {
         "source_tb": "t_orte.dbf",
-        "source_join": "",
-        "join_on": "",
-        "primary_key":"ORT_ORD_NR",
-        "join_flds": [],
         "source_flds": "ort_ord_nr,ort_plz,ort_ort,ort_land,seit,mut,person",
         "dest_tb": "orte",
-        "dest_flds": "ort_ord_nr,ort_plz,ort_ort,ort_land,ort_created,ort_modified,ort_user"
+        "dest_flds": "ort_ord_nr,ort_plz,ort_ort,ort_land,ort_created,ort_modified,ort_user",
+        "enabled": false,
+        "clear": true
+    },
+    {
+        "source_tb": "t_adressen.dbf",
+        "source_flds": "adr_kunu,adr_anred,adr_vor,adr_nach,adr_firma1,adr_firma,adr_zus,adr_str,adr_post,adr_plz,adr_ort,adr_ord_nr,adr_tel_g,adr_tel_p,adr_tel_f,adr_natel,adr_email,bemerkung,adr_bur_nr,arexnr,adr_codes,def_date,def_date,person",
+        "dest_tb": "adressen",
+        "dest_flds": "adr_kunu,adr_anred,adr_vor,adr_nach,adr_firma1,adr_firma,adr_zus,adr_str,adr_post,adr_plz,adr_ort,adr_ord_nr,adr_tel_g,adr_tel_p,adr_tel_f,adr_natel,adr_email,adr_bemerkung,adr_bur_nr,adr_arexnr,adr_codes,adr_created,adr_modified,adr_user",
+        "enabled": false,
+        "clear": true
+    },
+    {
+        "source_tb": "t_genossenschaft.dbf",
+        "source_flds": "genonr,bez,def_date",
+        "dest_tb": "genossenschaft",
+        "dest_flds": "genonr,bez,geno_modified",
+        "enabled": false,
+        "clear": true
+    },
+    {
+        "source_tb": "t_transponder.dbf",
+        "source_flds": "transid,tr_vondate,tr_bisdate,produkt,lieferart,prodnr,genonr,verbnr,qk_unt,gruppecode,kundennr,donotshow,rewid,stpid,frkid,dailyhalt,sammelnr,tr_codes,recipients,abhol_r,zulagetypg,zulagetypk,zulagetypz,upload,uploaddate,bemerkung,gisx,gisy,intern1,intern2,anhanger,nachtabhol,zeitgrenze,zeitgrenz2,def_date",
+        "dest_tb": "transponder",
+        "dest_flds": "transid,tr_vondate,tr_bisdate,produkt,lieferart,prodnr,genonr,verbnr,qk_unt,gruppecode,kundennr,donotshow,rewid,stpid,frkid,dailyhalt,sammelnr,tr_codes,recipients,abhol_r,zulagetypg,zulagetypk,zulagetypz,uploaded,uploaddate,bemerkung,gisx,gisy,intern1,intern2,anhanger,nachtabhol,zeitgrenze,zeitgrenz2,tr_modified",
+        "enabled": true,
+        "clear": true
+    },
+    {
+        "source_tb": "t_milchfactor.dbf",
+        "source_flds": "milchcode,def_string,ltrtokg,def_empty,def_date,def_user",
+        "dest_tb": "product",
+        "dest_flds": "productid,productname,productconvfactor,productname_reg,product_modified,product_user",
+        "enabled": true,
+        "clear": true
+    },
+    {
+        "source_tb": "t_nds_22.dbf",
+        "source_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
+        "dest_tb": "nds",
+        "dest_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
+        "enabled": true,
+        "clear": true
+    },
+    {
+        "source_tb": "t_nds_23.dbf",
+        "source_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
+        "dest_tb": "nds",
+        "dest_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
+        "enabled": true,
+        "clear": false
     }
+
 ]

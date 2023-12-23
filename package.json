@@ -16,12 +16,11 @@
   "author": "RSoft",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^25.9.2"
+    "electron": "^25.9.8"
   },
   "dependencies": {
-    "@el3um4s/mdbtools": "^1.0.3",
-    "dbffile": "^1.9.2",
-    "fs-extra": "^11.1.1",
-    "mysql2": "^3.5.1"
+    "dbffile": "^1.9.3",
+    "fs-extra": "^11.2.0",
+    "mysql2": "^3.6.5"
   }
 }
