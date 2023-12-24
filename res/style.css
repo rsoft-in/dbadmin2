@@ -7,3 +7,7 @@
 #actions {
     -webkit-app-region: no-drag;
 }
+
+.nav-item a .material-symbols-outlined {
+    color: #fff;
+}
