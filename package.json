@@ -16,7 +16,8 @@
   "author": "RSoft",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^25.9.8"
+    "electron": "^25.9.8",
+    "electron-packager": "^17.1.2"
   },
   "dependencies": {
     "dbffile": "^1.9.3",
