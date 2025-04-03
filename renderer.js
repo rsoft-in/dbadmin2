@@ -1,7 +1,7 @@
 const ipcRenderer = require('electron').ipcRenderer;
 
-const minimizeButton = document.getElementById('minimize');
-const exitButton = document.getElementById('exit');
+// const minimizeButton = document.getElementById('minimize');
+// const exitButton = document.getElementById('exit');
 const connectButton = document.getElementById('connect');
 const accessDbInput = document.getElementById('source-db');
 const selectButton = document.getElementById('select-file');
@@ -15,13 +15,13 @@ const serverPassword = document.getElementById('server-password');
 const serverDbName = document.getElementById('server-db-name');
 const progressBar = document.getElementById('progress-bar');
 
-minimizeButton.addEventListener('click', () => {
-    ipcRenderer.send('minimize-app', null);
-});
+// minimizeButton.addEventListener('click', () => {
+//     ipcRenderer.send('minimize-app', null);
+// });
 
-exitButton.addEventListener('click', () => {
-    ipcRenderer.send('exit-app', null);
-});
+// exitButton.addEventListener('click', () => {
+//     ipcRenderer.send('exit-app', null);
+// });
 
 connectButton.addEventListener('click', () => {
     if (sourceDb.value == '') {

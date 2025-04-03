@@ -4,7 +4,7 @@
         "source_flds": "cod_art,cod_code,cod_bez,cod_wert,seit,mut,person",
         "dest_tb": "codes",
         "dest_flds": "cod_art,cod_code,cod_bez,cod_wert,cod_created,cod_modified,cod_user",
-        "enabled": false,
+        "enabled": true,
         "clear": true
     },
     {
@@ -12,7 +12,7 @@
         "source_flds": "ort_ord_nr,ort_plz,ort_ort,ort_land,seit,mut,person",
         "dest_tb": "orte",
         "dest_flds": "ort_ord_nr,ort_plz,ort_ort,ort_land,ort_created,ort_modified,ort_user",
-        "enabled": false,
+        "enabled": true,
         "clear": true
     },
     {
@@ -20,7 +20,7 @@
         "source_flds": "adr_kunu,adr_anred,adr_vor,adr_nach,adr_firma1,adr_firma,adr_zus,adr_str,adr_post,adr_plz,adr_ort,adr_ord_nr,adr_tel_g,adr_tel_p,adr_tel_f,adr_natel,adr_email,bemerkung,adr_bur_nr,arexnr,adr_codes,def_date,def_date,person",
         "dest_tb": "adressen",
         "dest_flds": "adr_kunu,adr_anred,adr_vor,adr_nach,adr_firma1,adr_firma,adr_zus,adr_str,adr_post,adr_plz,adr_ort,adr_ord_nr,adr_tel_g,adr_tel_p,adr_tel_f,adr_natel,adr_email,adr_bemerkung,adr_bur_nr,adr_arexnr,adr_codes,adr_created,adr_modified,adr_user",
-        "enabled": false,
+        "enabled": true,
         "clear": true
     },
     {
@@ -28,7 +28,7 @@
         "source_flds": "genonr,bez,def_date",
         "dest_tb": "genossenschaft",
         "dest_flds": "genonr,bez,geno_modified",
-        "enabled": false,
+        "enabled": true,
         "clear": true
     },
     {
@@ -48,20 +48,27 @@
         "clear": true
     },
     {
-        "source_tb": "t_nds_22.dbf",
-        "source_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
-        "dest_tb": "nds",
-        "dest_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
-        "enabled": true,
-        "clear": true
-    },
-    {
         "source_tb": "t_nds_23.dbf",
         "source_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
         "dest_tb": "nds",
         "dest_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
         "enabled": true,
         "clear": false
+    },
+    {
+        "source_tb": "t_nds_24.dbf",
+        "source_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
+        "dest_tb": "nds",
+        "dest_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
+        "enabled": true,
+        "clear": false
+    },
+    {
+        "source_tb": "t_nds_25.dbf",
+        "source_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
+        "dest_tb": "nds",
+        "dest_flds": "liefdatum,tourdtyear,pendzeit,transid,milchmenge,mengekg,tournr,tourstrtdt,fahrernr,fahcode,fehlerflag,infokey,milchtemp,pfullvol,probeart,pftempend,pftempstrt,pftempvor,probenfnr,probennr,systemart,systemnr,loadhalt,loadhaltok,lh_manual,bemerkung,refdate,refnr,iskilo,milchcode,mut,person,selekt",
+        "enabled": true,
+        "clear": false
     }
-
 ]

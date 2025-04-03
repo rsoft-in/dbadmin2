@@ -11,8 +11,8 @@ const seperator = os.platform() == 'win32' ? "\\" : "/";
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
-        height: 600,
-        frame: false,
+        height: 550,
+        frame: true,
         autoHideMenuBar: true,
         webPreferences: {
             contextIsolation: false,
@@ -46,18 +46,15 @@ ipcMain.on('exit-app', () => {
 ipcMain.on('file-dialog', (event, args) => {
     let type = args['type'];
     let extensions = ['*'];
-    if (type == 'vfp') {
-        extensions = ['dbf'];
-    }
-    if (type == 'accdb') {
-        extensions = ['mdb', 'accdb'];
+    if (type == 'md') {
+        extensions = ['dbc'];
     }
     dialog.showOpenDialog(BrowserWindow, {
         properties: ['openFile', 'openDirectory'],
     }).then(result => {
         if (!result.canceled) {
             let file_path = result.filePaths[0];
-            if (type == 'vfp') {
+            if (type == 'md' || type == 'comis') {
                 let afile = result.filePaths[0].split(seperator);
                 file_path = afile.slice(0, afile.length - 1).join(seperator);
             }
@@ -81,10 +78,9 @@ ipcMain.on('connect-db', async (event, args) => {
     });
 
     // Read mapping file
-    if (dbType == 'accdb') {
-    } else if (dbType == 'vfp') {
+    if (dbType == 'md') {
         try {
-            let rawData = fs.readFileSync(`res${seperator}vfp.json`);
+            let rawData = fs.readFileSync(`res${seperator}md3.json`);
             let dbMap = JSON.parse(rawData);
             let files = fs.readdirSync(filePath);
             for (let i = 0; i < dbMap.length; i++) {
