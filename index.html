@@ -42,62 +42,67 @@
         </div>
     </nav> -->
 
-    <div class="container-fluid">
+    <div class="container-fluid vh-100">
         <form>
-            <div class="row fw-medium">
-                <div class="p-3">Source Database</div>
-            </div>
-            <div class="row g-2">
-                <div class="col-2">
-                    <select id="source-type" class="form-select">
-                        <option value="md">MD3</option>
-                        <option value="comis">Comis</option>
-                    </select>
-                </div>
-                <div class="col-10">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="source-db" name="source-db"
-                            placeholder="Source File" readonly>
-                        <button id="select-file" type="button" class="btn btn-primary">Select</button>
+            <div id="app" class="d-flex flex-column vh-100">
+                <div class="p-2" style="height: 42vh;">
+                    <div class="row fw-medium">
+                        <div class="p-3">Source Database</div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-2">
+                            <select id="source-type" class="form-select">
+                                <option value="md">MD3</option>
+                                <option value="comis">Comis</option>
+                            </select>
+                        </div>
+                        <div class="col-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="source-db" name="source-db"
+                                    placeholder="Source File" readonly>
+                                <button id="select-file" type="button" class="btn btn-primary">Select</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row fw-medium">
+                        <div class="p-3">Destination Database</div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="server-name" name="server-name"
+                                value="192.168.29.8" placeholder="Server Address" title="Server Address">
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" id="server-user-name" name="server-user-name"
+                                value="rajesh" placeholder="Username" title="Username">
+                        </div>
+                        <div class="col-2">
+                            <input type="password" class="form-control" id="server-password" name="server-password"
+                                value="Lucky913x" placeholder="Password" title="Password">
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="server-db-name" name="server-db-name"
+                                value="md_demo" placeholder="DB Name" title="DB Name">
+                        </div>
+                        <div class="col-2">
+                            <div class="d-grid">
+                                <button id="connect" type="button" class="btn btn-primary">Import</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0"
+                            aria-valuemin="0" aria-valuemax="100">
+                            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated"
+                                style="width: 0%"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row fw-medium">
-                <div class="p-3">Destination Database</div>
-            </div>
-            <div class="row g-2">
-                <div class="col-3">
-                    <input type="text" class="form-control" id="server-name" name="server-name" value="192.168.29.8"
-                        placeholder="Server Address" title="Server Address">
-                </div>
-                <div class="col-2">
-                    <input type="text" class="form-control" id="server-user-name" name="server-user-name" value="rajesh"
-                        placeholder="Username" title="Username">
-                </div>
-                <div class="col-2">
-                    <input type="password" class="form-control" id="server-password" name="server-password"
-                        value="Lucky913x" placeholder="Password" title="Password">
-                </div>
-                <div class="col-3">
-                    <input type="text" class="form-control" id="server-db-name" name="server-db-name" value="md_demo"
-                        placeholder="DB Name" title="DB Name">
-                </div>
-                <div class="col-2">
-                    <div class="d-grid">
-                        <button id="connect" type="button" class="btn btn-primary">Import</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="console p-3" style="height: 300px; overflow-y: scroll;">
-                    <div id="summary-text"></div>
-                </div>
-            </div>
-            <div class="mt-2">
-                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
-                    aria-valuemax="100">
-                    <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated"
-                        style="width: 0%"></div>
+                <div class="p-2 flex-grow-1 d-flex flex-column">
+                    <!-- <div class="console p-3 flex-grow-1 w-100" style="overflow-y: scroll;">
+                        <div id="summary-text"></div>
+                    </div> -->
+                    <div id="summary-text" class="card flex-grow-1 w-100 p-2"></div>
                 </div>
             </div>
         </form>
